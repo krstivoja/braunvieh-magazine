@@ -1,0 +1,542 @@
+// ********************************************************
+// overwrite template to make it full width
+// ********************************************************
+
+.col-3, .col-2 { display: none;} 
+.col-7 {
+  width: 100%;
+}
+
+
+
+// Magazine Styles
+// ================
+
+// Variables
+$color-primary: #726353;
+$color-primary-alt: #BBB3AA;
+$color-primary-hover: #4a3a2a;
+$color-accent: #dc2626;
+$color-accent-hover: #b91c1c;
+$color-accent-active: #991b1b;
+$color-white: #fff;
+$color-text: #666;
+$color-background-light: #f1ece7;
+
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 2px 8px rgba(0, 0, 0, 0.2);
+$shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.3);
+$shadow-xl: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+$transition-default: 0.3s ease;
+$transition-fast: 0.2s ease;
+
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+
+// Mixins
+@mixin button-base {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  cursor: pointer;
+  transition: background-color $transition-default;
+}
+
+@mixin button-primary {
+  @include button-base;
+  background: $color-primary;
+  color: $color-white;
+
+  &:hover {
+    background: $color-primary-hover;
+    color: $color-white;
+    text-decoration: none;
+  }
+
+  &:active {
+    background: $color-primary-hover;
+  }
+}
+
+@mixin button-accent {
+  @include button-base;
+  background: $color-accent;
+  color: $color-white;
+
+  &:hover {
+    background: $color-accent-hover;
+    color: $color-white;
+    text-decoration: none;
+  }
+
+  &:active {
+    background: $color-accent-active;
+  }
+}
+
+// ===================
+// Subscription Product
+// ===================
+.subscription-product {
+  margin: 8rem 0;
+  position: relative;
+  padding: 40px 20px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 600px;
+    height: 60%;
+    background: $color-primary;
+    z-index: 0;
+  }
+}
+
+.subscription-box {
+  background: $color-white;
+  padding: 40px 50px;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  box-shadow: $shadow-lg;
+  border-radius: $border-radius-sm;
+
+  @media (max-width: 768px) {
+    padding: 30px 25px;
+    max-width: 100%;
+  }
+}
+
+// Price Section
+.subscription-price {
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.price-amount {
+  display: block;
+  font-size: 48px;
+  font-weight: bold;
+  color: $color-primary;
+  line-height: 1.2;
+  margin-bottom: 8px;
+
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
+}
+
+.price-period {
+  display: block;
+  font-size: 24px;
+  color: $color-primary;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.price-underline {
+  width: 60px;
+  height: 2px;
+  background: $color-accent;
+  margin: 0 auto;
+}
+
+// Features Section
+.subscription-features {
+  margin-bottom: 30px;
+}
+
+.feature-item {
+  font-size: 24px;
+  color: $color-primary;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  text-align: center;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Subscription Button
+.subscription-button {
+  @include button-accent;
+  width: 100%;
+  padding: 16px 30px;
+  font-size: 1.5rem;
+}
+
+// Login Section
+.subscription-login-section {
+  text-align: center;
+  margin: 30px 0;
+  padding: 20px 0;
+}
+
+.subscription-login-text {
+  font-size: 2rem;
+  color: $color-primary;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.subscription-login-button {
+  @include button-primary;
+  display: inline-block;
+  padding: 18px 100px;
+  font-size: 1.4rem;
+  box-shadow: $shadow-md;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// ===================
+// Magazine Demo Items
+// ===================
+.magazine-demo-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 40px 0;
+  gap: 40px;
+}
+
+.magazine-demo-item {
+  flex: 0 0 calc(33.333% - 20px);
+  max-width: 400px;
+  min-width: 250px;
+  cursor: pointer;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+  padding: 1rem;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 768px) {
+    flex: 0 0 calc(50% - 10px);
+    min-width: 200px;
+  }
+
+  @media (max-width: 480px) {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+.magazine-demo-thumbnail {
+  width: 100%;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.magazine-thumbnail-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.magazine-demo-flip {
+  width: 100%;
+  height: 100%;
+
+  iframe,
+  > div {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+.magazine-demo-button {
+  @include button-primary;
+  width: fit-content;
+  padding: 12px 30px;
+  margin: 1rem auto;
+  font-size: 1.4rem;
+}
+
+// ===================
+// Magazine Popup
+// ===================
+.magazine-demo-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: none;
+}
+
+.magazine-popup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+}
+
+.magazine-popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 95%;
+  max-height: 95vh;
+  background: #222222;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-xl;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .magazine-demo-flip {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+
+    iframe,
+    > div {
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 600px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+
+    .magazine-demo-flip {
+      padding: 10px;
+    }
+  }
+}
+
+
+.magazine-popup-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: $color-primary;
+  color: $color-white;
+  border: none;
+  border-radius: 50%;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color $transition-default;
+  padding: 0;
+
+  &:hover {
+    background: $color-primary-hover;
+  }
+
+  @media (max-width: 480px) {
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+  }
+}
+
+// ===================
+// Magazine Archive
+// ===================
+
+.archive #content {
+  margin-top: 5rem;
+
+  @media (min-width: 850px)  {
+    margin-top: 2rem;
+  }
+}
+
+.magazine-expired-message {
+  background: $color-background-light;
+  padding: 30px 40px;
+  margin: 30px auto;
+  box-shadow: $shadow-sm;
+
+  .expired-title {
+    margin: 0 0 15px 0;
+    color: $color-primary;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.3;
+  }
+
+  .expired-text {
+    margin: 0 0 25px 0;
+    color: $color-text;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+.expired-purchase-button {
+  @include button-accent;
+  display: inline-block;
+  padding: 14px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.col-12 .magazine-archive-container {
+  display: grid;  
+  grid-template-columns: repeat(4, 1fr);
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+  gap: 30px;
+  
+  width: 100%;
+  @media (max-width: 768px)  {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0px;
+  }
+
+}
+.magazine-item-clickable {
+  cursor: pointer;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+  position: relative;
+  padding: 1rem;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .magazine-archive-title,
+  .magazine-archive-thumbnail,
+  .magazine-archive-thumbnail img {
+    pointer-events: none;
+  }
+
+  .magazine-archive-button,
+  a {
+    pointer-events: auto;
+    position: relative;
+    z-index: 5;
+    font-size: 1.4rem;
+  }
+}
+
+.magazine-archive-thumbnail {
+  width: 100%;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.magazine-archive-title {
+  font-size: 2rem !important;
+  color: $color-primary;
+  margin: 15px 0;
+  font-weight: 600;
+  text-align: left;
+}
+
+.magazine-archive-button {
+  @include button-base;
+  display: inline-block;
+  padding: 12px 40px;
+  color: $color-white;
+  width: 100%;
+  font-size: 14px;
+  box-shadow: $shadow-md;
+}
+
+.magazine-button-active {
+  background: $color-primary;
+
+  &:hover {
+    background: $color-primary-hover;
+    color: $color-white;
+    text-decoration: none;
+  }
+}
+
+.magazine-button-purchase {
+  background: $color-accent;
+
+  &:hover {
+    background: $color-accent-hover;
+    color: $color-white;
+    text-decoration: none;
+  }
+}
+
+.magazine-archive-container h1 {
+  margin: 1rem !important;
+
+  @media (min-width: 1681px)  {
+    margin: 4rem 1rem !important;
+  }
+}
+
+.subscription-login-section {
+  background-color: hsl(31.76deg 11.11% 70% / 12%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+
+.magasines-redirect-image {
+  border: 10px solid $color-primary;
+  background-color: white;
+  border-radius: 111111px;
+  width: 300px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 150px;
+    height: auto;
+  }
+}
+

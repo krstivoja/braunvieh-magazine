@@ -1,0 +1,41 @@
+.woocommerce-account h1 {
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+    
+    html .woocommerce-page ul.products.columns-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 2em !important;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+    
+    html .woocommerce-page ul.products.columns-4 {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2em !important;
+        align-items: center !important;
+    }
+
+    html .woocommerce-page ul.products li.product {
+        width: 100% !important;
+        mim-width: 100% !important;
+    }
+
+}
+
+
+
+.user-role-customer, 
+.user-role-subscriber {
+    padding-top: 0 !important;
+}
+
+.user-role-customer #side-nav, 
+.user-role-subscriber #side-nav{
+    top: 0 !important;
+}

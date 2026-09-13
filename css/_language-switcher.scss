@@ -1,0 +1,60 @@
+// Language selector styles
+#language-switcher {
+    margin-right: 15px;
+  
+    &:before {
+      content: "";
+      position: absolute;
+      background-image: url(./img/globe.svg);
+      width: 16px;
+      height: 16px;
+      border-radius: 100px;
+      left: 10px;
+      top: 12px;
+    }
+    
+    #language-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-color: transparent;
+      border: 1px solid #E3E0DD;
+      border-radius: 100px;
+      padding: 0.7rem 2rem 0.7rem 2rem;
+      font-size: 0.9rem;
+      color: #333;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        border-color: #726353;
+      }
+      
+      &:focus {
+        outline: none;
+        border-color: #726353;
+        box-shadow: 0 0 0 2px rgba(114, 99, 83, 0.2);
+      }
+      
+      &::-ms-expand {
+        display: none;
+      }
+    }
+    
+    // Custom dropdown arrow
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #333;
+      pointer-events: none;
+    }
+  }

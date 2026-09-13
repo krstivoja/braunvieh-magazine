@@ -1,0 +1,73 @@
+/*!
+ * Customizer "Additional CSS" from the classic braunvieh (magazine) theme, baked in.
+ * Block themes drop Customizer Additional CSS (stored per-theme; Customizer off under
+ * FSE), which silently removed the site overrides. Enqueued LAST so !important wins.
+ */
+
+@media (max-width: 768px) {
+  .tablepress {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+  }
+}
+
+
+.single-tribe_events .tribe-events-event-image {
+    display: none !important;
+}
+
+
+
+#content #quick-links .col-4 .round img{
+	max-height: 60%;
+}
+@media (max-width: 991px){
+	#content #quick-links .col-4 {
+    width: 33.333%;
+	}
+}
+#content #parallax .parallax-image::before{
+	background-image: url('/wp-content/uploads/2022/12/white-decoration_top.webp');
+}
+#content #parallax .parallax-image::after{
+	background-image: url('/wp-content/uploads/2022/12/white-decoration_bottom.webp');
+}
+#footer-social-links{
+	display: flex;
+}
+.footer-social-link{
+	width:40px;
+}
+#fullscreen-menu #mobile-social-links .social-link{
+	width:40px;
+}
+.home .youtube-video {
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+	height:100%;
+	margin-bottom: 50px;
+}
+.woocommerce-product-gallery{
+	opacity: 1 !important;
+}
+
+/* WooCommerce Grid auf 4 Spalten setzen */
+.woocommerce-page ul.products.columns-4 {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 2em !important; /* Abstand zwischen den Produkten */
+}
+
+/* Falls Theme automatisch columns-3 setzt, das auch überschreiben */
+.woocommerce-page ul.products.columns-3 {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 2em !important;
+}
+
+/* Generell sicherstellen, dass Produkt-Items keine eigene Breite haben */
+.woocommerce-page ul.products li.product {
+    width: auto !important;
+    margin: 0 !important;
+}

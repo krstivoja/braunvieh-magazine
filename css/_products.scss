@@ -1,0 +1,27 @@
+.post-type-archive-product ul.products {
+    &:before {
+        display: none !important;
+    }
+
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 4rem 3rem;
+
+    li{
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    .attachment-woocommerce_thumbnail{
+        // aspect-ratio: 1/1;
+        // object-fit: cover;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .post-type-archive-product ul.products {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6rem 4rem;
+    }
+}
