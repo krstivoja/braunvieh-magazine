@@ -3,8 +3,8 @@ Theme Name: Braunvieh Magazine
 Theme URI: https://www.pixels.ch
 Author: Pixels
 Author URI: https://www.pixels.ch
-Description: Block-theme conversion of the Braunvieh MAGAZINE theme. Same block chrome as Braunvieh Block, plus the magazine (dFlip flipbook) archive and magazine.css. English-only, no WooCommerce.
-Version: 3.0.0
+Description: Block-theme conversion of the Braunvieh MAGAZINE theme. Same block chrome as Braunvieh Block, plus the magazine (dFlip flipbook) archive and magazine.css. English-only, with WooCommerce for the subscription. Header links come from the main site.
+Version: 3.0.1
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 7.4
