@@ -1,6 +1,6 @@
 # Magazine header: links from the main site
 
-Status: **waiting for approval**
+Status: **approved 2026-09-13 — in progress** (branch `header-menu-from-api`, based on `b366b69`, i.e. before the child-theme conversion on `main`)
 
 ## What and why
 
@@ -50,13 +50,15 @@ The footer and the rest of the lean magazine theme come later.
 
 ## Steps
 
-- [ ] 0. Back up: `git init` the magazine theme and commit the current state.
-- [ ] 1. Screenshot the current header and open menu (before).
-- [ ] 2. Write the fetch + save + hourly refresh.
-- [ ] 3. Write the header block and switch `parts/header.html`.
-- [ ] 4. Test: header shows the live links, menu opens, sub-menus and Back work, desktop and mobile.
-- [ ] 5. Test: main site unreachable → header still shows the last good links.
-- [ ] 6. PHP lint, check the error log.
+- [x] 0. Back up: GitHub repo `krstivoja/braunvieh-magazine`, initial commit `b366b69`.
+- [x] 1. Screenshot the current header and open menu (before), plus the main site's `/en/` header as the target.
+- [x] 2. Write the fetch + save + hourly refresh.
+- [x] 3. Write the header block and switch `parts/header.html`.
+- [x] 4. Test: header shows the live links, menu opens, sub-menus and Back work, desktop and mobile.
+- [x] 5. Test: main site unreachable → header still shows the last good links. (Bad host + HTTP 404 on 2026-09-13 with this same code: refresh returns false, stored copy kept, one log line each.)
+- [x] 6. PHP lint, check the error log.
+- [x] 7. Commit + push the branch.
+- [ ] 8. Go live: replace the theme on the live magazine site (no DB changes). Then decide how this branch and the child theme on `main` come together.
 
 ## To fix on the main site (content, in wp-admin)
 
@@ -69,6 +71,3 @@ The footer and the rest of the lean magazine theme come later.
   top links *About us / Federation / Magazines*, menu *Braunvieh / Breeding values / Services / Events / About us*, the same external links.
   No magazine-only menu items.
 
-## Open question
-
-- OK to `git init` the magazine theme as a backup first?

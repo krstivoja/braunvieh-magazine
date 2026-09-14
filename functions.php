@@ -2,10 +2,11 @@
 /**
  * Braunvieh Magazine theme.
  *
- * Block-theme conversion of the classic `braunvieh` MAGAZINE theme. Front-end chrome
- * (header/footer) is provided by the cows/site-header & cows/site-footer
- * dynamic blocks (see the cows-modular-blocks plugin), which port the original
- * ACF-options-driven header.php / footer.php.
+ * Block-theme conversion of the classic `braunvieh` MAGAZINE theme. The header is the
+ * theme's braunvieh-magazine/site-header block (inc/site-header.php), showing the main
+ * site's English header links (inc/header-footer-api.php). The footer is still the
+ * cows/site-footer dynamic block (cows-modular-blocks plugin), which ports the
+ * original ACF-options-driven footer.php.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,9 +16,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'THEME_DIR', get_template_directory() );
 define( 'THEME_URI', get_template_directory_uri() );
 
-// Single-language site (English only) — hide the header language switcher
-// (read by the shared cows/site-header block).
+// Single-language site (English only) — no header language switcher. The theme's
+// own header block never prints one; kept for the shared cows-modular-blocks blocks.
 define( 'COWS_HIDE_LANGUAGE_SWITCHER', true );
+
+// Main site that shares its header/footer links (inc/header-footer-api.php), and the
+// language to take them in. Defined in wp-config.php wins (e.g. staging).
+if ( ! defined( 'BRAUNVIEH_MAIN_URL' ) ) {
+	define( 'BRAUNVIEH_MAIN_URL', 'https://homepage.braunvieh.ch' );
+}
+if ( ! defined( 'BRAUNVIEH_HEADER_FOOTER_LANG' ) ) {
+	define( 'BRAUNVIEH_HEADER_FOOTER_LANG', 'en' );
+}
 
 add_theme_support( 'post-thumbnails' );
 add_theme_support( 'title-tag' );
@@ -225,3 +235,5 @@ require_once THEME_DIR . '/inc/body_class.php';
 require_once THEME_DIR . '/inc/block_by_country.php';
 require_once THEME_DIR . '/inc/cookie_banner_translations.php';
 require_once THEME_DIR . '/inc/magazine.php';         // magazine CPT archive block + magazine.css + EXTERNAL_SHOP_URL
+require_once THEME_DIR . '/inc/header-footer-api.php'; // main site header/footer data: fetch, store, hourly refresh
+require_once THEME_DIR . '/inc/site-header.php';      // braunvieh-magazine/site-header block
