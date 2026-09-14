@@ -1,0 +1,173 @@
+/*!
+ * WooCommerce styling for the magazine site.
+ *
+ * The parent theme (braunvieh-block 3.0.5, commit 520f71d) dropped its WooCommerce
+ * CSS because the main site has no WooCommerce. The magazine sells its subscription
+ * itself, so the rules live on here: first those removed from styles.css, then those
+ * removed from nav-sidebar.css, then the WooCommerce rules from the classic magazine
+ * theme's Customizer "Additional CSS".
+ *
+ * Enqueued only on WooCommerce pages (functions.php), after the parent's stylesheets.
+ */
+
+/* ---- From the parent's css/styles.css ---- */
+
+.single-product #content, .post-type-archive-product #content, .tax-product_cat #content {
+  padding-top: 120px; }
+  .single-product #content h1, .post-type-archive-product #content h1, .tax-product_cat #content h1 {
+    margin-bottom: 20px; }
+  .single-product #content .summary .price, .post-type-archive-product #content .summary .price, .tax-product_cat #content .summary .price {
+    color: #E4081F;
+    margin-bottom: 30px; }
+  .single-product #content .summary .woocommerce-product-details__short-description, .post-type-archive-product #content .summary .woocommerce-product-details__short-description, .tax-product_cat #content .summary .woocommerce-product-details__short-description {
+    margin-bottom: 20px; }
+  .single-product #content .summary .qty, .post-type-archive-product #content .summary .qty, .tax-product_cat #content .summary .qty {
+    height: 36px;
+    font-size: 20px;
+    border-radius: 5px; }
+  .single-product #content .summary .button, .post-type-archive-product #content .summary .button, .tax-product_cat #content .summary .button {
+    background: #786855; }
+  .single-product #content .related, .single-product #content .products, .post-type-archive-product #content .related, .post-type-archive-product #content .products, .tax-product_cat #content .related, .tax-product_cat #content .products {
+    clear: both; }
+    .single-product #content .related h2, .single-product #content .products h2, .post-type-archive-product #content .related h2, .post-type-archive-product #content .products h2, .tax-product_cat #content .related h2, .tax-product_cat #content .products h2 {
+      font-size: 30px; }
+      .single-product #content .related h2.woocommerce-loop-product__title, .single-product #content .products h2.woocommerce-loop-product__title, .post-type-archive-product #content .related h2.woocommerce-loop-product__title, .post-type-archive-product #content .products h2.woocommerce-loop-product__title, .tax-product_cat #content .related h2.woocommerce-loop-product__title, .tax-product_cat #content .products h2.woocommerce-loop-product__title {
+        font-size: 25px;
+        margin-bottom: 10px;
+        padding: 0;
+        text-transform: none;
+        font-weight: 700; }
+    .single-product #content .related .amount, .single-product #content .products .amount, .post-type-archive-product #content .related .amount, .post-type-archive-product #content .products .amount, .tax-product_cat #content .related .amount, .tax-product_cat #content .products .amount {
+      color: #E4081F; }
+    .single-product #content .related .button, .single-product #content .products .button, .post-type-archive-product #content .related .button, .post-type-archive-product #content .products .button, .tax-product_cat #content .related .button, .tax-product_cat #content .products .button {
+      margin-top: 10px; }
+    .single-product #content .related .added_to_cart, .single-product #content .products .added_to_cart, .post-type-archive-product #content .related .added_to_cart, .post-type-archive-product #content .products .added_to_cart, .tax-product_cat #content .related .added_to_cart, .tax-product_cat #content .products .added_to_cart {
+      display: block;
+      color: #E4081F; }
+
+.single-product #sidebar, .post-type-archive-product #sidebar, .tax-product_cat #sidebar {
+  display: none; }
+
+.woocommerce-error, .woocommerce-info, .woocommerce-message {
+  border-top-color: #726353; }
+
+.woocommerce-info::before {
+  color: #dc2c1c; }
+
+.woocommerce div.product .stock {
+  margin-bottom: 20px; }
+
+.woocommerce div.product .woocommerce-tabs ul.tabs {
+  padding: 0; }
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li::after {
+  display: none; }
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li {
+  background-color: #786855; }
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li a,
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:hover {
+  color: #fff; }
+
+.woocommerce #respond input#submit,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button {
+  color: #fff;
+  background-color: #786855; }
+
+.woocommerce p.stars a::before {
+  color: #dc2c1c; }
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a,
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a:hover {
+  color: #515151; }
+
+#add_payment_method .cart-collaterals .shipping-calculator-button,
+.woocommerce-cart .cart-collaterals .shipping-calculator-button,
+.woocommerce-checkout .cart-collaterals .shipping-calculator-button {
+  color: #dc2c1c; }
+
+html body.woocommerce-cart .wc-proceed-to-checkout a.button.checkout-button,
+html body.woocommerce-cart .wc-proceed-to-checkout a.button.checkout-button:hover {
+  background-color: #dc2c1c !important;
+  color: #ffffff !important; }
+
+.woocommerce a.remove, .woocommerce a.remove:hover {
+  color: #dc2c1c !important; }
+
+.woocommerce form .form-row input.input-text, .woocommerce form .form-row textarea {
+  padding: 8px; }
+
+.woocommerce form .form-row input.input-text, .woocommerce form .form-row textarea {
+  font-family: "OfficinaSansITC-Book",sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px; }
+
+.woocommerce #respond input#submit.alt, .woocommerce a.button.alt, .woocommerce button.button.alt, .woocommerce input.button.alt,
+.woocommerce #respond input#submit.alt:hover, .woocommerce a.button.alt:hover, .woocommerce button.button.alt:hover, .woocommerce input.button.alt:hover {
+  background-color: #dc2c1c; }
+
+.woocommerce-info a {
+  color: #dc2c1c; }
+
+#order_review_heading {
+  margin-top: 20px;
+  margin-bottom: 10px; }
+
+span.woocommerce-Price-currencySymbol {
+  margin-right: 6px; }
+
+.woocommerce-products-header .page-description ul {
+  padding-left: 20px; }
+
+/* ---- From the parent's css/nav-sidebar.css ---- */
+
+.post-type-archive-product ul.products:before {
+  display: none !important;
+}
+.post-type-archive-product ul.products {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 4rem 3rem;
+}
+.post-type-archive-product ul.products li {
+  margin: 0 !important;
+  width: 100% !important;
+}
+@media screen and (min-width: 600px) {
+  .post-type-archive-product ul.products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6rem 4rem;
+  }
+}
+
+/* ---- From the classic theme's Customizer "Additional CSS" ---- */
+
+/* WooCommerce hides the product gallery (inline opacity:0) until its script has run. */
+.woocommerce-product-gallery{
+	opacity: 1 !important;
+}
+
+/* WooCommerce Grid auf 4 Spalten setzen (css/woo-fixes.css narrows it on small screens) */
+.woocommerce-page ul.products.columns-4 {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 2em !important; /* Abstand zwischen den Produkten */
+}
+
+/* Falls Theme automatisch columns-3 setzt, das auch überschreiben */
+.woocommerce-page ul.products.columns-3 {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 2em !important;
+}
+
+/* Generell sicherstellen, dass Produkt-Items keine eigene Breite haben */
+.woocommerce-page ul.products li.product {
+    width: auto !important;
+    margin: 0 !important;
+}

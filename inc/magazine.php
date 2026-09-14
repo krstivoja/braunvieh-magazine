@@ -19,10 +19,13 @@ if ( ! defined( 'EXTERNAL_SHOP_URL' ) ) {
 }
 
 // magazine.css on magazine pages / archive / singles (same condition as classic).
+// The child theme's folder (get_template_* would point at the parent), after the
+// parent's stylesheets, versioned by file mtime like the parent's.
 add_action( 'wp_enqueue_scripts', function () {
 	$is_ssp_page = ( is_page() && function_exists( 'get_field' ) && get_field( 'ssp' ) );
 	if ( $is_ssp_page || is_post_type_archive( 'magazine' ) || is_singular( 'magazine' ) ) {
-		wp_enqueue_style( 'magazine', get_template_directory_uri() . '/css/magazine.css', array( 'braunvieh-legacy' ), '2.3.5' );
+		$css = '/css/magazine.css';
+		wp_enqueue_style( 'magazine', get_stylesheet_directory_uri() . $css, array( 'braunvieh-legacy', 'nav-sidebar', 'slick', 'braunvieh-tokens' ), filemtime( get_stylesheet_directory() . $css ) );
 	}
 }, 21 );
 

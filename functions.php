@@ -1,101 +1,54 @@
 <?php
 /**
- * Braunvieh Magazine theme.
+ * Braunvieh Magazine — child theme of Braunvieh Block.
  *
- * Block-theme conversion of the classic `braunvieh` MAGAZINE theme. Front-end chrome
- * (header/footer) is provided by the cows/site-header & cows/site-footer
- * dynamic blocks (see the cows-modular-blocks plugin), which port the original
- * ACF-options-driven header.php / footer.php.
+ * The parent (braunvieh-block) provides the design: theme.json, CSS, blocks,
+ * templates, and the header and footer, which on this site show the main site's
+ * English header and footer (from its header/footer API). This child only holds
+ * what is special about the magazine: WooCommerce (./woocommerce overrides, the
+ * shop/cart/checkout block templates and the hooks below) and the magazine
+ * archive (inc/magazine.php).
+ *
+ * This file loads before the parent's functions.php, so the constants below win.
+ * The parent defines THEME_DIR / THEME_URI as its own paths: child files always
+ * go through get_stylesheet_directory() / get_stylesheet_directory_uri().
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'THEME_DIR', get_template_directory() );
-define( 'THEME_URI', get_template_directory_uri() );
+// The magazine site: the parent skips the main site's events, /en/ routing and
+// shop redirect, and takes the header and footer from the main site's API…
+if ( ! defined( 'BRAUNVIEH_SITE' ) ) {
+	define( 'BRAUNVIEH_SITE', 'magazine' );
+}
 
-// Single-language site (English only) — hide the header language switcher
-// (read by the shared cows/site-header block).
-define( 'COWS_HIDE_LANGUAGE_SWITCHER', true );
+// …in English.
+if ( ! defined( 'BRAUNVIEH_HEADER_FOOTER_LANG' ) ) {
+	define( 'BRAUNVIEH_HEADER_FOOTER_LANG', 'en' );
+}
 
-add_theme_support( 'post-thumbnails' );
-add_theme_support( 'title-tag' );
-add_theme_support( 'wp-block-styles' );
-add_theme_support( 'responsive-embeds' );
+// Single-language site (English only) — no header language switcher.
+if ( ! defined( 'COWS_HIDE_LANGUAGE_SWITCHER' ) ) {
+	define( 'COWS_HIDE_LANGUAGE_SWITCHER', true );
+}
 
-// Nav menu used by the header block (fullscreen menu). Idempotent if also registered elsewhere.
-add_action( 'after_setup_theme', function () {
-	register_nav_menus( array(
-		'fullscreen-menu' => __( 'Fullscreen Menu', 'braunvieh-magazine' ),
-	) );
-} );
-
-// "Rot" style variation for core/button — the target of the migrator's standalone
-// CTA links (a link that is a whole line/list item in a section_text WYSIWYG). The
-// style class (.is-style-red) is what carries the red look; registering it here
-// also surfaces it in the editor's Styles panel. See css/tokens.css for the look.
-add_action( 'init', function () {
-	if ( function_exists( 'register_block_style' ) ) {
-		register_block_style( 'core/button', array(
-			'name'  => 'red',
-			'label' => __( 'Rot', 'braunvieh-magazine' ),
-		) );
-	}
-} );
-
-// Front-end styles/scripts (ported from the classic theme, minus WooCommerce).
+// Child stylesheets, after the parent's (priority 20) so they win.
 add_action( 'wp_enqueue_scripts', function () {
-	wp_enqueue_style( 'braunvieh-icons', THEME_URI . '/css/osi2tvy.css', array(), '3.1.0' );
-	wp_enqueue_style( 'braunvieh-legacy', THEME_URI . '/css/styles.css', array(), '3.1.0' );
-	wp_enqueue_style( 'nav-sidebar', THEME_URI . '/css/nav-sidebar.css', array(), '3.1.0' );
-	wp_enqueue_style( 'slick', THEME_URI . '/css/slick.css', array(), '3.1.0' );
-	// WooCommerce spacing/layout fixes (ported from the shop theme) — the magazine
-	// site now sells the subscription itself, so it needs the Woo styling too.
-	wp_enqueue_style( 'woo-fixes', THEME_URI . '/css/woo-fixes.css', array( 'braunvieh-legacy' ), '3.1.0' );
+	$dir    = get_stylesheet_directory();
+	$uri    = get_stylesheet_directory_uri();
+	$parent = array( 'braunvieh-legacy', 'nav-sidebar', 'slick', 'braunvieh-tokens' );
 
-	wp_enqueue_script( 'slick', THEME_URI . '/js/slick.min.js', array( 'jquery' ), '3.1.0', true );
-	wp_enqueue_script( 'nav-sidebar', THEME_URI . '/js/nav-sidebar.js', array(), '3.1.0', true );
-	wp_enqueue_script( 'custom', THEME_URI . '/js/custom.js', array( 'jquery' ), '3.1.0', true );
-
-	// Token bridge — must load LAST so it overrides legacy hardcoded values in styles.css.
-	wp_enqueue_style( 'braunvieh-tokens', THEME_URI . '/css/tokens.css', array( 'braunvieh-legacy', 'nav-sidebar', 'slick' ), '3.1.0' );
-
-	// Customizer "Additional CSS" from the classic magazine theme, baked in — block
-	// themes drop it (per-theme, Customizer off under FSE). Load LAST so it wins.
-	wp_enqueue_style( 'braunvieh-customizer', THEME_URI . '/css/customizer.css', array( 'braunvieh-tokens' ), '3.1.0' );
-
-	// TablePress default CSS: the migrated pages hold pre-rendered TablePress
-	// table HTML (the ACF WYSIWYG had already run do_shortcode), so TablePress
-	// never detects a [table] shortcode on the page and never outputs its own
-	// styling. Force-load its default.css whenever the current page contains a
-	// TablePress table, so tables get the same structure/borders as the original.
-	if ( defined( 'TABLEPRESS_ABSPATH' ) && is_singular() ) {
-		$post = get_queried_object();
-		if ( $post instanceof WP_Post && false !== strpos( (string) $post->post_content, 'tablepress' ) ) {
-			$css_file = TABLEPRESS_ABSPATH . 'css/build/default.css';
-			if ( file_exists( $css_file ) ) {
-				$css_url = content_url( str_replace( wp_normalize_path( WP_CONTENT_DIR ), '', wp_normalize_path( $css_file ) ) );
-				wp_enqueue_style( 'tablepress-default-forced', $css_url, array( 'braunvieh-tokens' ), null );
-			}
-		}
+	// The WooCommerce styling the parent no longer carries — only where WooCommerce renders.
+	if ( function_exists( 'is_woocommerce' ) && ( is_woocommerce() || is_cart() || is_checkout() || is_account_page() ) ) {
+		wp_enqueue_style( 'braunvieh-woocommerce', $uri . '/css/woocommerce.css', $parent, filemtime( $dir . '/css/woocommerce.css' ) );
 	}
-}, 20 );
 
-// ACF options pages used by the header/footer/banner fields.
-add_action( 'acf/init', function () {
-	if ( function_exists( 'acf_add_options_page' ) ) {
-		acf_add_options_page( 'Header' );
-		acf_add_options_page( 'Footer' );
-		acf_add_options_page( 'Banner' );
-	}
-} );
-
-// Allow SVG uploads (logos/icons).
-add_filter( 'upload_mimes', function ( $mimes ) {
-	$mimes['svg'] = 'image/svg+xml';
-	return $mimes;
-} );
+	// WooCommerce spacing/layout fixes (ported from the shop theme). Everywhere: it
+	// also carries the logged-in customer/subscriber header offsets.
+	wp_enqueue_style( 'woo-fixes', $uri . '/css/woo-fixes.css', $parent, filemtime( $dir . '/css/woo-fixes.css' ) );
+}, 21 );
 
 /* =========================================================================
  * WooCommerce — ported verbatim from the classic shop theme's functions.php,
@@ -218,10 +171,5 @@ add_action( 'wp_footer', function () {
 	<?php
 } );
 
-// Shared helpers carried over from the classic theme.
-require_once THEME_DIR . '/inc/custom_nav.php';            // fullscreen menu walker
-require_once THEME_DIR . '/inc/footer_newsletter.php';     // [footer_newsletter] shortcode
-require_once THEME_DIR . '/inc/body_class.php';
-require_once THEME_DIR . '/inc/block_by_country.php';
-require_once THEME_DIR . '/inc/cookie_banner_translations.php';
-require_once THEME_DIR . '/inc/magazine.php';         // magazine CPT archive block + magazine.css + EXTERNAL_SHOP_URL
+// Magazine archive block, [productbox], subscription check, magazine.css.
+require_once get_stylesheet_directory() . '/inc/magazine.php';
